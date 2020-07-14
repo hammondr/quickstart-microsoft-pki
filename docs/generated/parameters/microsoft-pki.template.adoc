@@ -1,0 +1,43 @@
+
+.Domain Admin credentials
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default Value|Description|Domain Admin User
+(`DomainAdminUser`)|`admin`||Domain Admin Password
+(`DomainAdminPassword`)|``|
+|===
+.Active Directory configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default Value|Description|Fully Qualified Domain Name, i.e. example.com
+(`DomainDNSName`)|`example.com`|Domain DNS name|Domain NetBios Name, i.e. EXAMPLE
+(`DomainNetBIOSName`)|`EXAMPLE`|Domain NetBIOS name|Domain Controller IP addresses, comma delimited
+(`domaincontrollers`)|``|
+|===
+.EC2 Details
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default Value|Description|Subnet for the Root CA EC2 instance
+(`RootCASubnet`)|``|Private Subnet for the Root CA EC2 instance|Subnet for the Subordinate CA EC2 instance
+(`SubCASubnet`)|``|Private Subnet for the Subordinate CA EC2 instance|AWS Security Group for Active Directory domain members
+(`DomainMemberSG`)|``|Security Group for Active Directory domain members|EC2 Instance Size
+(`ServerSize`)|`Small`|T3 small, C5 large, C5 xlarge|Key Pair for EC2 Instances
+(`KeyPairName`)|`**__Requires Input__**`|Public/private key pair, which allows you to securely connect to your instance after it launches.
+|===
+.ADCS Details
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default Value|Description|Common Name for the Root CA
+(`RootCACommonName`)|``|Common Name for the Root CA, i.e. rca or rootca|Common Name for the Subordinate CA
+(`SubCACommonName`)|``|Common name for the Subordinate CA, i.e. subca or ca|Root CA Validity Period in Years
+(`RootCAValidityPeriod`)|`10`|Root CA validity period in years, default 10|Subordinate CA Validity Period in Years
+(`SubCAValidityPeriod`)|`1`|Subordinate CA validity period in years, default 1
+|===
+.AWS Quick Start Configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default Value|Description|Quick Start S3 Bucket Name
+(`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|Quick Start S3 bucket region
+(`QSS3BucketRegion`)|`us-east-1`|The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.|Quick Start S3 Key Prefix
+(`QSS3KeyPrefix`)|`quickstart-microsoft-pki/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).
+|===
