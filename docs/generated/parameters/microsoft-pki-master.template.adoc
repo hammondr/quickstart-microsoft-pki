@@ -24,8 +24,8 @@
 |===
 |Parameter label (name) |Default Value|Description|EC2 Instance Size
 (`ServerSize`)|`Small`|T3 small, C5 large, C5 xlarge|Common Name for the Root CA
-(`RootCACommonName`)|``|Common Name for the Root CA, i.e. rca or rootca|Common Name for the Subordinate CA
-(`SubCACommonName`)|``|Common name for the Subordinate CA, i.e. subca or ca|Root CA Validity Period in Years
+(`RootCACommonName`)|`**__Requires Input__**`|Common Name for the Root CA, i.e. rca or rootca|Common Name for the Subordinate CA
+(`SubCACommonName`)|`**__Requires Input__**`|Common name for the Subordinate CA, i.e. subca or ca|Root CA Validity Period in Years
 (`RootCAValidityPeriod`)|`10`|Root CA validity period in years, default 10|Subordinate CA Validity Period in Years
 (`SubCAValidityPeriod`)|`1`|Subordinate CA validity period in years, default 1
 |===
