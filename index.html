@@ -1334,14 +1334,14 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin User
 (<code>DomainAdminUser</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admin</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Admin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User name for the account that will be added as Domain Administrator. This is separate from the default "Administrator" account</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin Password
 (<code>DomainAdminPassword</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain admin user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1364,19 +1364,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">Fully Qualified Domain Name, i.e. example.com
 (<code>DomainDNSName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>example.com</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain DNS name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified domain name (FQDN) of the forest root domain.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Domain NetBios Name, i.e. EXAMPLE
 (<code>DomainNetBIOSName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>EXAMPLE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain NetBIOS name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>example</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Domain Controller IP addresses, comma delimited
 (<code>domaincontrollers</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-delimited list of domain controller IP addresses</p></td>
 </tr>
 </tbody>
 </table>
@@ -1399,25 +1399,25 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Root CA EC2 instance
 (<code>RootCASubnet</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet for the Root CA EC2 instance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Root Certification Authority EC2 instance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Subordinate CA EC2 instance
 (<code>SubCASubnet</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet for the Subordinate CA EC2 instance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Subordinate Certification Authority EC2 instance</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AWS Security Group for Active Directory domain members
 (<code>DomainMemberSG</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Security Group for Active Directory domain members</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security group for Active Directory domain members</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EC2 Instance Size
 (<code>ServerSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Small</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T3 small, C5 large, C5 xlarge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Small (T3 small), medium (C5 large), or large (C5 xlarge) EC2 instance size</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair for EC2 Instances
@@ -1446,25 +1446,25 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA
 (<code>RootCACommonName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA, i.e. rca or rootca</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root Certification Authority, i.e. rca or rootca</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Subordinate CA
 (<code>SubCACommonName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the Subordinate CA, i.e. subca or ca</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the Subordinate Certification Authority, i.e. subca or ca</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Root CA Validity Period in Years
 (<code>RootCAValidityPeriod</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root CA validity period in years, default 10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root Certification Authority validity period in years, default 10</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA Validity Period in Years
 (<code>SubCAValidityPeriod</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA validity period in years, default 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate Certification Authority validity period in years, default 1</p></td>
 </tr>
 </tbody>
 </table>
@@ -1909,7 +1909,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 22:23:26 UTC
+Last updated 2020-08-03 22:57:48 UTC
 </div>
 </div>
 </body>
