@@ -786,8 +786,8 @@ table p {
 <ul class="sectlevel2">
 <li><a href="#_sign_in_to_your_aws_account">Sign in to your AWS account</a></li>
 <li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
-<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
 <li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
+<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
 </ul>
 </li>
 <li><a href="#_test_the_deployment">Test the deployment</a></li>
@@ -835,7 +835,7 @@ report bugs, or submit feature ideas for this Quick Start.
 </table>
 </div>
 <div class="paragraph text-left">
-<p>This Quick Start was created by Microsoft in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
+<p>This Quick Start was created by {partner-company-name} in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
 </div>
 </div>
 </div>
@@ -855,7 +855,7 @@ report bugs, or submit feature ideas for this Quick Start.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Please know that we may share who uses AWS
+Amazon may share who uses AWS
 Quick Starts with the AWS Partner Network (APN) Partner that
 collaborated with AWS on the content of the Quick Start.
 </td>
@@ -917,11 +917,9 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="paragraph">
 <p>Deploying this Quick Start for a new virtual private cloud (VPC) with <strong>default parameters</strong> builds the following &lt;software&gt; environment in the AWS Cloud.</p>
 </div>
-<div class="paragraph">
+<div id="architecture1" class="paragraph">
+<div class="title">Quick Start architecture for Public Key Infrastructure on AWS</div>
 <p><span class="image"><img src="images/image1.png" alt="image" width="643" height="432"></span></p>
-</div>
-<div class="paragraph">
-<p>Figure 1: Quick Start architecture for Microsoft PKI on AWS</p>
 </div>
 <div class="paragraph">
 <p>As shown in Figure 1, the Quick Start sets up the following:</p>
@@ -965,10 +963,8 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Overview of ADCS Deployment Steps</p>
-</div>
-<div class="paragraph">
+<div id="architecture2" class="paragraph">
+<div class="title">Overview of ADCS Deployment Steps</div>
 <p><span class="image"><img src="images/image2.png" alt="image" width="648" height="355"></span></p>
 </div>
 <div class="olist arabic">
@@ -1315,199 +1311,9 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </div>
 </div>
 <div class="sect2">
-<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Domain Admin credentials</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin User
-(<code>DomainAdminUser</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Admin</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User name for the account that will be added as Domain Administrator. This is separate from the default "Administrator" account</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin Password
-(<code>DomainAdminPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain admin user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Active Directory configuration</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fully Qualified Domain Name, i.e. example.com
-(<code>DomainDNSName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>example.com</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified domain name (FQDN) of the forest root domain.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain NetBios Name, i.e. EXAMPLE
-(<code>DomainNetBIOSName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>example</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Controller IP addresses, comma delimited
-(<code>domaincontrollers</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-delimited list of domain controller IP addresses</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. EC2 Details</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Root CA EC2 instance
-(<code>RootCASubnet</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Root Certification Authority EC2 instance</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Subordinate CA EC2 instance
-(<code>SubCASubnet</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Subordinate Certification Authority EC2 instance</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Security Group for Active Directory domain members
-(<code>DomainMemberSG</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Security group for Active Directory domain members</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 Instance Size
-(<code>ServerSize</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Small</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Small (T3 small), medium (C5 large), or large (C5 xlarge) EC2 instance size</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair for EC2 Instances
-(<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private key pair, which allows you to securely connect to your instance after it launches.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. ADCS Details</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA
-(<code>RootCACommonName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root Certification Authority, i.e. rca or rootca</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Subordinate CA
-(<code>SubCACommonName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the Subordinate Certification Authority, i.e. subca or ca</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root CA Validity Period in Years
-(<code>RootCAValidityPeriod</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root Certification Authority validity period in years, default 10</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA Validity Period in Years
-(<code>SubCAValidityPeriod</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate Certification Authority validity period in years, default 1</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. AWS Quick Start Configuration</caption>
-<colgroup>
-<col style="width: 16%;">
-<col style="width: 11%;">
-<col style="width: 73%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
-(<code>QSS3BucketName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
-(<code>QSS3BucketRegion</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
-(<code>QSS3KeyPrefix</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-microsoft-pki/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
 <h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Network configuration</caption>
+<caption class="title">Table 1. Network configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1566,7 +1372,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Microsoft Active Directory configuration</caption>
+<caption class="title">Table 2. Microsoft Active Directory configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1601,7 +1407,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Microsoft PKI configuration</caption>
+<caption class="title">Table 3. Microsoft PKI configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1648,7 +1454,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Microsoft Remote Desktop Gateway configuration</caption>
+<caption class="title">Table 4. Microsoft Remote Desktop Gateway configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1683,7 +1489,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. AWS Quick Start configuration</caption>
+<caption class="title">Table 5. AWS Quick Start configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1711,6 +1517,196 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
+(<code>QSS3KeyPrefix</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-microsoft-pki/</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Domain Admin credentials</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin User
+(<code>DomainAdminUser</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Admin</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User name for the account that will be added as Domain Administrator. This is separate from the default "Administrator" account</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin Password
+(<code>DomainAdminPassword</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain admin user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Active Directory configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully Qualified Domain Name, i.e. example.com
+(<code>DomainDNSName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>example.com</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified domain name (FQDN) of the forest root domain.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain NetBios Name, i.e. EXAMPLE
+(<code>DomainNetBIOSName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>example</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Controller IP addresses, comma delimited
+(<code>domaincontrollers</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-delimited list of domain controller IP addresses</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. EC2 Details</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Root CA EC2 instance
+(<code>RootCASubnet</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Root Certification Authority EC2 instance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Subordinate CA EC2 instance
+(<code>SubCASubnet</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Subordinate Certification Authority EC2 instance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Security Group for Active Directory domain members
+(<code>DomainMemberSG</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security group for Active Directory domain members</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 Instance Size
+(<code>ServerSize</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Small</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Small (T3 small), medium (C5 large), or large (C5 xlarge) EC2 instance size</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair for EC2 Instances
+(<code>KeyPairName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private key pair, which allows you to securely connect to your instance after it launches.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. ADCS Details</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA
+(<code>RootCACommonName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root Certification Authority, i.e. rca or rootca</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Subordinate CA
+(<code>SubCACommonName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the Subordinate Certification Authority, i.e. subca or ca</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root CA Validity Period in Years
+(<code>RootCAValidityPeriod</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Root Certification Authority validity period in years, default 10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA Validity Period in Years
+(<code>SubCAValidityPeriod</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate Certification Authority validity period in years, default 1</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. AWS Quick Start Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
+(<code>QSS3BucketName</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+(<code>QSS3BucketRegion</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-microsoft-pki/</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
@@ -1893,7 +1889,7 @@ and to share your customizations with others.</p>
 </div>
 <hr>
 <div class="paragraph">
-<p>© 2020, Amazon Web Services, Inc. or its affiliates, and Microsoft. All rights reserved.</p>
+<p>© 2020, Amazon Web Services, Inc. or its affiliates, and {partner-company-name}. All rights reserved.</p>
 </div>
 <div class="sect3">
 <h4 id="_notices">Notices</h4>
@@ -1909,7 +1905,7 @@ and to share your customizations with others.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-03 22:57:48 UTC
+Last updated 2020-08-05 16:07:19 UTC
 </div>
 </div>
 </body>
