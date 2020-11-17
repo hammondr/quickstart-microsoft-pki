@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>Public Key Infrastructure on the AWS Cloud</title>
+<title>Microsoft Public Key Infrastructure (PKI) on the AWS Cloud</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -762,6 +762,25 @@ table.tableblock .title,
 table p {
   margin: 0rem;
 }
+
+/* Add border around hyperlink images */
+a img {
+    border: 1px solid #A4A4A4;
+}
+
+.preview_mode {
+	border-color:#e0e0dc;
+	-webkit-box-shadow:0 1px 4px #e0e0dc;
+	box-shadow:0 1px 4px #e0e0dc;
+  background:#ffffb3;
+  padding-bottom: 2rem;
+}
+.preview_mode .tableblock {
+  background:#ffffb3;
+}
+
+.footer-text{color:rgba(255,255,255,.8);line-height:1.44;background:#1c222a;padding:1.25em;max-width:100%;margin-bottom:unset}
+p.footer-text a{color:#d7d8d8}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -771,10 +790,11 @@ table p {
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
-<li><a href="#_public_key_infrastructure_on_aws">Public Key Infrastructure on AWS</a></li>
+<li><a href="#_microsoft_public_key_infrastructure_pki_on_aws">Microsoft Public Key Infrastructure (PKI) on AWS</a></li>
 <li><a href="#_cost">Cost</a></li>
 <li><a href="#_software_licenses">Software licenses</a></li>
 <li><a href="#_architecture">Architecture</a></li>
+<li><a href="#_the_ad_cs_deployment_process">The AD CS deployment process</a></li>
 <li><a href="#_planning_the_deployment">Planning the deployment</a>
 <ul class="sectlevel2">
 <li><a href="#_specialized_knowledge">Specialized knowledge</a></li>
@@ -786,30 +806,31 @@ table p {
 <ul class="sectlevel2">
 <li><a href="#_sign_in_to_your_aws_account">Sign in to your AWS account</a></li>
 <li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
-<li><a href="#_launch_into_a_new_vpc">Launch into a new VPC</a></li>
-<li><a href="#_launch_into_an_existing_vpc">Launch into an existing VPC</a></li>
 </ul>
 </li>
 <li><a href="#_test_the_deployment">Test the deployment</a></li>
-<li><a href="#_best_practices_for_using_public_key_infrastructure_on_aws">Best practices for using Public Key Infrastructure on AWS</a></li>
+<li><a href="#_best_practices_for_using_microsoft_pki_on_aws">Best practices for using Microsoft PKI on AWS</a></li>
 <li><a href="#_security">Security</a></li>
 <li><a href="#_other_useful_information">Other useful information</a></li>
 <li><a href="#_faq">FAQ</a></li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
-<li><a href="#_send_us_feedback">Send us feedback</a></li>
-<li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
-<li><a href="#_github_repository">GitHub repository</a>
-<ul class="sectlevel3">
-<li><a href="#_notices">Notices</a></li>
+<li><a href="#_parameter_reference">Parameter reference</a>
+<ul class="sectlevel2">
+<li><a href="#_parameters_for_deploying_into_a_new_vpc">Parameters for deploying into a new VPC</a></li>
+<li><a href="#_parameters_for_deploying_into_an_existing_vpc">Parameters for deploying into an existing VPC</a></li>
 </ul>
 </li>
+<li><a href="#_send_us_feedback">Send us feedback</a></li>
+<li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
+<li><a href="#_github_repository">GitHub repository</a></li>
+<li><a href="#_notices">Notices</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_public_key_infrastructure_on_the_aws_cloud" class="discrete text-center">Public Key Infrastructure on the AWS Cloud</h2>
+<h2 id="_microsoft_public_key_infrastructure_pki_on_the_aws_cloud" class="discrete text-center">Microsoft Public Key Infrastructure (PKI) on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
 <div class="imageblock text-center">
 <div class="content">
@@ -817,9 +838,8 @@ table p {
 </div>
 </div>
 <div class="paragraph text-center">
-<p><strong>July, 2020</strong><br>
-<em>{partner-contributors}</em><br>
-<em>RJ Davis, AWS and Dave May, AWS</em></p>
+<p><strong>November 2020</strong><br>
+<em>R. J. Davis and Dave May, AWS</em></p>
 </div>
 <div class="admonitionblock tip text-left">
 <table>
@@ -843,35 +863,27 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start reference deployment guide provides step-by-step instructions for deploying a Microsoft Public Key Infrastructure (PKI) on the AWS Cloud.</p>
+<p>This guide provides instructions for deploying the Microsoft PKI Quick Start reference architecture on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start is for systems administrators and IT engineers who need to deploy root and subordinate Certification Authorities in their Active Directory environments.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Amazon may share who uses AWS
-Quick Starts with the AWS Partner Network (APN) Partner that
-collaborated with AWS on the content of the Quick Start.
-</td>
-</tr>
-</table>
+<p>This Quick Start is for systems administrators and IT engineers who need to deploy root and subordinate certification authorities (CAs) in their Active Directory environments.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_public_key_infrastructure_on_aws">Public Key Infrastructure on AWS</h2>
+<h2 id="_microsoft_public_key_infrastructure_pki_on_aws">Microsoft Public Key Infrastructure (PKI) on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Certificate Authority (CA) roles are Windows roles that are available to be installed on Windows Server. A Root CA acts as the primary certificate authority for an Active Directory forest; the certificates generated by the Root CA are used for signing server and application certificates issued by the Subordinate CA.</p>
+<p>Windows environments use digital certificates to secure multiple types of connections: Microsoft Active Directory LDAPS* lookups, Internet Information Services (IIS) HTTPS connections, Exchange Server communications, Windows Server Update Services (WSUS), and so on. A public key infrastructure (PKI) creates, manages, distributes, stores, and revokes these digital certificates.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start deploys both a Root CA and a Subordinate CA. An initial root certificate is automatically generated and the Root CA EC2 instance is powered off, serving in the future as an offline root CA. Keeping the Root CA offline except when a new root certificate needs to be generated ensures the integrity of the root certificate.</p>
+<p>With a Windows-hosted PKI in an AWS account, you can maintain your own certificates. This capability helps you reduce insecure, unsigned network traffic. To deploy a PKI environment on Windows, you install and configure CA roles on one or more Windows servers.</p>
+</div>
+<div class="paragraph">
+<p>This Quick Start deploys both a root CA and a subordinate CA. The root CA acts as the primary certification authority for an Active Directory forest. The certificates generated by the root CA sign the server and application certificates issued by the subordinate CA. The Quick Start automatically generates an initial root certificate and powers off the root CA&#8217;s Amazon Elastic Compute Cloud (Amazon EC2) instance. This instance serves as an offline root CA. By keeping the root CA offline except when a new root certificate needs to be generated, this deployment helps ensure the integrity of the root certificate.</p>
+</div>
+<div class="paragraph">
+<p><span class="small">*LDAPS = LDAP (Lightweight Directory Access Protocol) over SSL (Secure Sockets Layer)</span></p>
 </div>
 </div>
 </div>
@@ -884,10 +896,10 @@ this Quick Start. There is no additional cost for
 using the Quick Start.</p>
 </div>
 <div class="paragraph">
-<p>The AWS CloudFormation template for this Quick Start includes
+<p>The AWS CloudFormation templates for Quick Starts include
 configuration parameters that you can customize. Some of the settings,
 such as the instance type, affect the cost of deployment. For cost estimates,
-see the pricing pages for each AWS service you will use. Prices are subject to change.</p>
+see the pricing pages for each AWS service you use. Prices are subject to change.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -896,7 +908,7 @@ see the pricing pages for each AWS service you will use. Prices are subject to c
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and finalizes the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
+After you deploy the Quick Start, <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">create AWS Cost and Usage Reports</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. These reports provide cost estimates based on usage throughout each month and aggregate the data at the end of the month. For more information, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">What are AWS Cost and Usage Reports?</a>
 </td>
 </tr>
 </table>
@@ -915,14 +927,16 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start for a new virtual private cloud (VPC) with <strong>default parameters</strong> builds the following &lt;software&gt; environment in the AWS Cloud.</p>
+<p>Deploying this Quick Start for a new virtual private cloud (VPC) with default parameters builds the following Microsoft PKI environment in the AWS Cloud.</p>
 </div>
-<div id="architecture1" class="paragraph">
-<div class="title">Quick Start architecture for Public Key Infrastructure on AWS</div>
-<p><span class="image"><img src="images/image1.png" alt="image" width="643" height="432"></span></p>
+<div id="architecture1" class="imageblock">
+<div class="content">
+<img src="images/image1.png" alt="Architecture1" width="100%" height="100%">
+</div>
+<div class="title">Figure 1. Quick Start architecture for Microsoft PKI on AWS</div>
 </div>
 <div class="paragraph">
-<p>As shown in Figure 1, the Quick Start sets up the following:</p>
+<p>As shown in <a href="#architecture1">Figure 1</a>, the Quick Start sets up the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -933,74 +947,99 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <p>A VPC configured with public and private subnets, according to AWS best practices, to provide you with your own virtual network on AWS.*</p>
 </li>
 <li>
-<p>An AWS Managed Active Directory environment.*
-*</p>
-</li>
-<li>
 <p>In the public subnets:</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Managed network address translation (NAT) gateways to allow outbound internet access for resources in the private subnets.*</p>
 </li>
 <li>
-<p>A Remote Desktop Gateway instance in an Auto Scaling group to allow inbound remote desktop (RDP) access to EC2 instances in public and private subnets.*</p>
+<p>A Remote Desktop Gateway (RD Gateway) instance in an Auto Scaling group to allow inbound Remote Desktop Protocol (RDP) access to EC2 instances in public and private subnets.*</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>In the private subnets:</p>
-</li>
-<li>
-<p>An EC2 instance running Microsoft Windows to serve as an offline Root CA</p>
-</li>
-<li>
-<p>An EC2 instance running Microsoft Windows to serve as a Subordinate CA</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.</p>
+<p>In Availability Zone 1, an EC2 instance running Windows to serve as an offline root CA.</p>
+</li>
+<li>
+<p>In Availability Zone 2, an EC2 instance running Windows to serve as a subordinate CA.</p>
 </li>
 </ul>
 </div>
 </li>
+<li>
+<p>AWS Directory Service, which helps deploy an Active Directory Certificate Services (AD CS) environment.*</p>
+</li>
+<li>
+<p>AWS Secrets Manager to securely store credentials.</p>
+</li>
+<li>
+<p>AWS Systems Manager (SSM) to automate the CA deployment process and store the generated certificates.</p>
+</li>
+<li>
+<p>AWS Identity and Access Management (IAM) to enable the EC2 instances and Systems Manager automation documents to perform their tasks.</p>
+</li>
 </ul>
 </div>
-<div id="architecture2" class="paragraph">
-<div class="title">Overview of ADCS Deployment Steps</div>
-<p><span class="image"><img src="images/image2.png" alt="image" width="648" height="355"></span></p>
+<div class="paragraph">
+<p><span class="small">* The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.</span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_ad_cs_deployment_process">The AD CS deployment process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This Quick Start deploys an AD CS environment, which includes an offline root CA and an online subordinate CA. The AWS Systems Manager automation document created by this Quick Start automates the steps shown in the following diagram. When the process is complete, the root CA has generated a domain root certificate and is powered off, and the subordinate CA is available to sign certificate requests for the domain.</p>
+</div>
+<div id="architecture2" class="imageblock">
+<div class="content">
+<img src="images/image2.png" alt="Deployment steps overview" width="100%" height="100%">
+</div>
+<div class="title">Figure 2. The AD CS deployment process</div>
+</div>
+<div class="paragraph">
+<p>Deploying this Quick Start, as shown in <a href="#architecture2">Figure 2</a>, automates the following steps:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run Root CA installation and configuration</p>
+<p>The root CA is installed and configured.</p>
 </li>
 <li>
-<p>Begin Subordinate CA setup</p>
+<p>The subordinate CA is installed and configured.</p>
 </li>
 <li>
-<p>Get domain credentials from Secrets Manager</p>
+<p>Domain credentials are obtained from Secrets Manager.</p>
 </li>
 <li>
-<p>Join Active Directory Domain</p>
+<p>The Active Directory domain is joined.</p>
 </li>
 <li>
-<p>Add DNS Records for Root CA and Subordinate CA</p>
+<p>The Domain Name System (DNS) records for the root CA and subordinate CA are added.</p>
 </li>
 <li>
-<p>Subordinate CA puts CA request (csr) into Parameter Store</p>
+<p>The subordinate CA puts a certificate-signing request into Parameter Store.</p>
 </li>
 <li>
-<p>Root CA gets CA request from Parameter Store &amp; Approves</p>
+<p>The root CA gets a CA request from Parameter Store and approves it.</p>
 </li>
 <li>
-<p>Root CA puts all certificates and CRLs into Parameter Store</p>
+<p>The root CA puts all certificates and certificate-revocation lists into Parameter Store.</p>
 </li>
 <li>
-<p>Subordinate CA gets all certificates from Parameter Store</p>
+<p>The subordinate CA gets all certificates from Parameter Store.</p>
 </li>
 <li>
-<p>Subordinate CA uses dspublish and installs certificate for ADCS Activation</p>
+<p>(Not shown) The subordinate CA uses <code>dspublish</code> to install the certificate and activate AD CS.</p>
 </li>
 <li>
-<p>Subordinate CA removes domain credentials from Secrets Manager</p>
+<p>(Not shown) The subordinate CA removes the domain credentials from Secrets Manager.</p>
 </li>
 </ol>
 </div>
@@ -1012,19 +1051,10 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="sect2">
 <h3 id="_specialized_knowledge">Specialized knowledge</h3>
 <div class="paragraph">
-<p>This deployment guide requires a moderate level of familiarity with
-AWS services. If you’re new to AWS, visit the
-<a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started Resource Center</a>
-and the <a href="https://aws.amazon.com/training/">AWS Training and Certification
-website</a>. These sites provide materials for learning how to design,
-deploy, and operate your infrastructure and applications on the AWS
-Cloud.</p>
+<p>This deployment requires a moderate level of familiarity with AWS services. If you’re new to AWS, visit <a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started with AWS</a> and <a href="https://aws.amazon.com/training/" target="_blank" rel="noopener">Training and Certification</a>. These sites provide materials for learning how to design, deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start assumes familiarity with Microsoft Certificate Authority roles.</p>
-</div>
-<div class="paragraph">
-<p>This deployment guide also requires a moderate level of familiarity with AWS services. If you’re new to AWS, visit the {https://aws.amazon.com/getting-started/}[Getting Started Resource Center] and the {https://aws.amazon.com/training/}[AWS Training and Certification website]. These sites provide materials for learning how to design, deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
+<p>This Quick Start assumes familiarity with Microsoft CA roles.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1039,12 +1069,12 @@ Cloud.</p>
 <div class="sect2">
 <h3 id="_technical_requirements">Technical requirements</h3>
 <div class="paragraph">
-<p>Before you launch the Quick Start, your account must be configured as specified below. Otherwise, deployment might fail.</p>
+<p>Before you launch the Quick Start, your account must be configured as specified in the following table. Otherwise, deployment might fail.</p>
 </div>
 <div class="sect3">
-<h4 id="_resource_limits">Resource limits</h4>
+<h4 id="_resource_quotas">Resource quotas</h4>
 <div class="paragraph">
-<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources, and this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see the <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">AWS documentation</a>.</p>
+<p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources and if this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">What is Service Quotas?</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" target="_blank" rel="noopener">AWS service quotas</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1067,11 +1097,11 @@ Cloud.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) security groups</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security groups</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IAM roles</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
@@ -1090,10 +1120,7 @@ Cloud.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_supported_regions">Supported regions</h4>
-<div class="paragraph">
-<p>The following regions are currently supported by this Quick Start.</p>
-</div>
+<h4 id="_supported_regions">Supported Regions</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -1165,7 +1192,7 @@ Cloud.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Certain regions are available on an opt-in basis. Refer to the AWS Documentation on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing Regions</a> for more information.
+Certain Regions are available on an opt-in basis. See <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing AWS Regions</a>.
 </td>
 </tr>
 </table>
@@ -1174,7 +1201,7 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="sect3">
 <h4 id="_ec2_key_pairs">EC2 key pairs</h4>
 <div class="paragraph">
-<p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, follow the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">instructions in the AWS documentation</a>.</p>
+<p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pairs and Linux instances</a>.</p>
 </div>
 <div class="paragraph">
 <p>For testing or proof-of-concept purposes, we recommend creating a new key pair instead of using one that’s already being used by a production instance.</p>
@@ -1183,10 +1210,7 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="sect3">
 <h4 id="_iam_permissions">IAM permissions</h4>
 <div class="paragraph">
-<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">IAM permissions</a> for the resources and actions the templates deploy.</p>
-</div>
-<div class="paragraph">
-<p>The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.</p>
+<p>Before launching the Quick Start, you must sign in to the AWS Management Console with IAM permissions for the resources that the templates deploy. The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">AWS managed policies for job functions</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1197,15 +1221,15 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy Public Key Infrastructure into a new VPC (end-to-end deployment)</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys Public Key Infrastructure into this new VPC.</p>
+<p><strong>Deploy Microsoft PKI into a new VPC</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, Remote Desktop Gateway, and other infrastructure components. It then deploys Microsoft PKI into this new VPC.</p>
 </li>
 <li>
-<p><strong>Deploy Public Key Infrastructure into an existing VPC</strong>. This option provisions Public Key Infrastructure in your existing AWS infrastructure.</p>
+<p><strong>Deploy Microsoft PKI into an existing VPC</strong>. This option provisions Microsoft PKI in your existing AWS infrastructure.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Public Key Infrastructure settings, as discussed later in this guide.</p>
+<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Microsoft PKI settings, as discussed later in this guide.</p>
 </div>
 </div>
 </div>
@@ -1229,6 +1253,18 @@ Certain regions are available on an opt-in basis. Refer to the AWS Documentation
 </div>
 <div class="sect2">
 <h3 id="_launch_the_quick_start">Launch the Quick Start</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you’re deploying Microsoft PKI into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances, and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables, to allow the instances to download packages and software without exposing them to the internet.
+</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1241,45 +1277,36 @@ You are responsible for the cost of the AWS services used while running this Qui
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Each deployment takes about 30 minutes to complete.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see <a href="#_deployment_options">deployment options</a> earlier in this guide.</p>
+<p>Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see <a href="#_deployment_options">Deployment options</a> earlier in this guide.</p>
 </li>
 </ol>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 100%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Public Key Infrastructure into a new VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/V4P9Q" target="_blank" rel="noopener">Deploy Microsoft PKI into a new VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/aa5WK" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://qs_launch_link" target="_blank" rel="noopener">Deploy Public Key Infrastructure into an existing VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/vgDqv" target="_blank" rel="noopener">Deploy Microsoft PKI into an existing VPC on AWS</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/Axdrp" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 </tbody>
 </table>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-If you’re deploying Public Key Infrastructure into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances, and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables, to allow the instances to download packages and software without exposing them to the internet.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Each deployment takes about 30 minutes to complete.</p>
-</div>
 <div class="olist arabic">
 <ol class="arabic" start="2">
 <li>
-<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for Public Key Infrastructure will be built. The template is launched in the us-east-1 Region by default.</p>
+<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for Microsoft PKI will be built. The template is launched in the us-east-1 Region by default.</p>
 </li>
 </ol>
 </div>
@@ -1289,13 +1316,149 @@ If you’re deploying Public Key Infrastructure into an existing VPC, make sure 
 <p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
 </li>
 <li>
-<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary.</p>
+<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details on each parameter, see the <a href="#_parameter_reference">Parameter reference</a> section of this guide. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>In the following tables, parameters are listed by category and described separately for the deployment options. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re finished, choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
+</li>
+<li>
+<p>Choose <strong>Create stack</strong> to deploy the stack.</p>
+</li>
+<li>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Microsoft PKI deployment is ready.</p>
+</li>
+<li>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Figure 3</a>, to view the created resources.</p>
+</li>
+</ol>
 </div>
+<div id="cfn_outputs" class="imageblock">
+<div class="content">
+<a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="100%" height="100%"></a>
+</div>
+<div class="title">Figure 3. Microsoft PKI outputs after successful deployment</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_the_deployment">Test the deployment</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Connect to the RD Gateway via RDP, then connect to the subordinate CA via RDP.</p>
+</li>
+<li>
+<p>Open <code>C:\adcs_scripts\ADCS_SubCA_DSPublish.txt</code>.</p>
+</li>
+<li>
+<p>Confirm that the output includes the following: "SSL Certificate Successfully Added."</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_best_practices_for_using_microsoft_pki_on_aws">Best practices for using Microsoft PKI on AWS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This Quick Start migrates pertinent folders and files—those related to the certificate services—to an Amazon Elastic Block Store (Amazon EBS) volume [D:\]. Back up the Microsoft PKI deployment, including the private key and the current certificate database.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security">Security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After this Quick Start deploys the root CA and generates the root certificate, the root CA is powered off. The root CA is intended to remain offline until the domain root certificate needs to be renewed.</p>
+</div>
+<div class="paragraph">
+<p>Domain-administrator credentials are stored in AWS Secrets Manager and consumed by the subordinate CA. The subordinate CA uses these credentials to join domains, install certificate services, and add the required DNS records. When these tasks are completed, these credentials are removed from Secrets Manager.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_useful_information">Other useful information</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/configure-the-server-certificate-template" target="_blank" rel="noopener">Configure the Server Certificate Template</a></p>
+</li>
+<li>
+<p><a href="https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/configure-server-certificate-autoenrollment" target="_blank" rel="noopener">Configure certificate auto-enrollment</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, relaunch the template with <strong>Rollback on failure</strong> set to <strong>No</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Configure stack options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (For Windows, look at the log files in <code>%ProgramFiles%\Amazon\EC2ConfigService</code> and <code>C:\cfn\log</code>.)</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For additional information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q.</strong> I encountered a size limitation error when I deployed the AWS CloudFormation templates.</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information, see <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation quotas</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting">Troubleshooting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Various log files record progress throughout deployment. When you troubleshoot deployment failures, review the error messages in the following log files. Fill in your own values for <strong>&lt;instance Id&gt;</strong> and <strong>&lt;commandId&gt;</strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Subordinate CA log-file repository: <code>C:\adcs_scripts</code></p>
+</li>
+<li>
+<p>Subordinate CA SSM PowerShell log-file output: <code>C:\ProgramData\Amazon\SSM\InstanceData\&lt;instanceId&gt;\document\orchestration\&lt;commandId&gt;\..\..\stdoutConsole</code></p>
+</li>
+<li>
+<p>Root CA SSM PowerShell log file: <code>C:\ProgramData\Amazon\SSM\InstanceData\&lt;instanceId&gt;\document\orchestration\&lt;commandId&gt;\..\..\stdoutConsole</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See also <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting-remote-commands.html" target="_blank" rel="noopener">Troubleshooting Systems Manager Run Command</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parameter_reference">Parameter reference</h2>
+<div class="sectionbody">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1303,15 +1466,14 @@ If you’re deploying Public Key Infrastructure into an existing VPC, make sure 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-We recommend keeping the default settings for the three parameters labled 'Quick Start S3 bucket name', 'Quick Start S3 bucket
-Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick Start templates for your own deployment projects. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For additional details, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
+Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled <code>Quick Start S3 bucket name</code>, <code>Quick Start S3 bucket
+Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
 </td>
 </tr>
 </table>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_launch_into_a_new_vpc">Launch into a new VPC</h3>
+<h3 id="_parameters_for_deploying_into_a_new_vpc">Parameters for deploying into a new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Network configuration</caption>
 <colgroup>
@@ -1322,34 +1484,34 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Key pair name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key-pair name
 (<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private key pair that allows you to securely connect to your instance after it launches.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the key pair that you will use to securely connect to your EC2 instance after it launches. The key pair consists of a private key and a public key.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
 (<code>AvailabilityZones</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of Availability Zones to use for the subnets in the VPC. Only two Availability Zones are used for this deployment, and the logical order is preserved.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones to use for the subnets in the VPC. This deployment uses two Availability Zones, and it preserves their logical order.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet 1 CIDR
 (<code>PrivateSubnet1CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the Active Directory Server tier located in Availability Zone 1.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the Active Directory server tier located in Availability Zone 1.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet 2 CIDR
 (<code>PrivateSubnet2CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.64.0/19</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the Active Directory Server tier located in Availability Zone 2.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the Active Directory server tier located in Availability Zone 2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public subnet 1 CIDR
@@ -1367,7 +1529,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">VPC CIDR
 (<code>VPCCIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the VPC.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1381,16 +1543,16 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain admin password
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain-administrator password
 (<code>DomainAdminPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain admin user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain-administrator user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Domain DNS name
@@ -1416,40 +1578,40 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 Instance Size
+<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 instance size
 (<code>ServerSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Small</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T3 small, C5 large, C5 xlarge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose "Medium" (C5 large) or "Large" (C5 xlarge) if you don&#8217;t want "Small" (T3 small).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the root CA
 (<code>RootCACommonName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA, i.e. rca or rootca</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examples: "rca" or "rootca."</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Subordinate CA
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the subordinate CA
 (<code>SubCACommonName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the Subordinate CA, i.e. subca or ca</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examples: "subca" or "ca."</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root CA Validity Period in Years
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validity period for the root CA
 (<code>RootCAValidityPeriod</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root CA validity period in years, default 10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter a value in years.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA Validity Period in Years
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validity period for the subordinate CA
 (<code>SubCAValidityPeriod</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA validity period in years, default 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter a value in years.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1463,7 +1625,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1472,19 +1634,19 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of RD Gateway hosts
 (<code>NumberOfRDGWHosts</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of RD Gateway hosts to create (up to four).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose a number up to four.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allowed RD Gateway external access CIDR
 (<code>RDGWCIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allowed CIDR block for external access to the RD Gateway hosts.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RD Gateway server instance type
 (<code>RDGWInstanceType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>m5.xlarge</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 instance type for the RD Gateway instance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 instance type for the RD Gateway.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1498,7 +1660,7 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
@@ -1507,27 +1669,27 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket name
 (<code>QSS3BucketName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket Region
 (<code>QSS3BucketRegion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Keep the default Region unless you are customizing the template. Changing this Region updates code references to point to a new Quick Start location. When using your own bucket, specify the Region. See <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-microsoft-pki/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). See <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html" class="bare">https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html</a> and <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
+<h3 id="_parameters_for_deploying_into_an_existing_vpc">Parameters for deploying into an existing VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Domain Admin credentials</caption>
+<caption class="title">Table 6. Domain-administrator credentials</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1536,22 +1698,22 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin User
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain-administrator user
 (<code>DomainAdminUser</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Admin</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User name for the account that will be added as Domain Administrator. This is separate from the default "Administrator" account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User name for the account that will be added as the domain administrator. This is separate from the default "Administrator" account.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Admin Password
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain-administrator password
 (<code>DomainAdminPassword</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain admin user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Password for the domain-administrator user. Must be at least 8 characters and contain letters, numbers, and symbols.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1565,33 +1727,33 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Fully Qualified Domain Name, i.e. example.com
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain DNS name
 (<code>DomainDNSName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>example.com</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Fully qualified domain name (FQDN) of the forest root domain.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain NetBios Name, i.e. EXAMPLE
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain NetBios name
 (<code>DomainNetBIOSName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>example</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Controller IP addresses, comma delimited
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain controller IP addresses
 (<code>domaincontrollers</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-delimited list of domain controller IP addresses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-delimited list of domain controller IP addresses.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. EC2 Details</caption>
+<caption class="title">Table 8. EC2 details</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1600,45 +1762,45 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Root CA EC2 instance
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the root CA
 (<code>RootCASubnet</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Root Certification Authority EC2 instance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the root CA EC2 instance.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the Subordinate CA EC2 instance
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subnet for the subordinate CA
 (<code>SubCASubnet</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the Subordinate Certification Authority EC2 instance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet for the subordinate CA EC2 instance.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Security Group for Active Directory domain members
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security group for Active Directory domain members
 (<code>DomainMemberSG</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Security group for Active Directory domain members</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS security group for Active Directory domain members.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 Instance Size
+<td class="tableblock halign-left valign-top"><p class="tableblock">EC2 instance size
 (<code>ServerSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Small</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Small (T3 small), medium (C5 large), or large (C5 xlarge) EC2 instance size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Choose "Medium" (C5 large) or "Large" (C5 xlarge) if you don&#8217;t want "Small" (T3 small).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair for EC2 Instances
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key pair name
 (<code>KeyPairName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Public/private key pair, which allows you to securely connect to your instance after it launches.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the key pair that you will use to securely connect to your EC2 instance after it launches. The key pair consists of a private key and a public key.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. ADCS Details</caption>
+<caption class="title">Table 9. AD CS details</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1647,39 +1809,39 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root CA
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the root CA
 (<code>RootCACommonName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Root Certification Authority, i.e. rca or rootca</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examples: "rca" or "rootca."</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common Name for the Subordinate CA
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the subordinate CA
 (<code>SubCACommonName</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires Input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Common name for the Subordinate Certification Authority, i.e. subca or ca</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Blank string</em></strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Examples: "subca" or "ca."</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root CA Validity Period in Years
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validity period for the root CA
 (<code>RootCAValidityPeriod</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Root Certification Authority validity period in years, default 10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter a value in years.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate CA Validity Period in Years
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validity period for the subordinate CA
 (<code>SubCAValidityPeriod</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Subordinate Certification Authority validity period in years, default 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enter a value in years.</p></td>
 </tr>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. AWS Quick Start Configuration</caption>
+<caption class="title">Table 10. AWS Quick Start configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1688,178 +1850,31 @@ Region', and 'Quick Start S3 key prefix', unless you are customizing the Quick S
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Parameter label (name)</th>
-<th class="tableblock halign-left valign-top">Default Value</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket name
 (<code>QSS3BucketName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket region
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 bucket Region
 (<code>QSS3BucketRegion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Keep the default Region unless you are customizing the template. Changing this Region updates code references to point to a new Quick Start location. When using your own bucket, specify the Region. See <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 key prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-microsoft-pki/</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). See <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html" class="bare">https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html</a> and <a href="https://aws-quickstart.github.io/option1.html" class="bare">https://aws-quickstart.github.io/option1.html</a>.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="olist arabic">
-<ol class="arabic" start="5">
-<li>
-<p>On the options page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re done, choose <strong>Next</strong>.</p>
-</li>
-<li>
-<p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
-</li>
-<li>
-<p>Choose <strong>Create stack</strong> to deploy the stack.</p>
-</li>
-<li>
-<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Public Key Infrastructure deployment is ready.</p>
-</li>
-<li>
-<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in Figure 2, to view the resources that were created.</p>
-</li>
-</ol>
-</div>
-<div id="cfn_outputs" class="imageblock">
-<div class="content">
-<img src="images/cfn_outputs.png" alt="cfn_outputs" width="648" height="439">
-</div>
-<div class="title">Figure 1. Public Key Infrastructure outputs after successful deployment</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_test_the_deployment">Test the deployment</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Connect to the RD Gateway via RDP, then connect to the subordinate CA via RDP.</p>
-</div>
-<div class="paragraph">
-<p>Open C:\adcs_scripts\ADCS_SubCA_DSPublish.txt</p>
-</div>
-<div class="paragraph">
-<p>Confirm the output includes the following: "SSL Certificate Successfully Added"</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_best_practices_for_using_public_key_infrastructure_on_aws">Best practices for using Public Key Infrastructure on AWS</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This quickstart migrates pertinent folders and files related to the certificate services to an additional EBS volume [ D:\ ]. It is recommended to back-up the PKI deployment including private key and current certificate database.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_security">Security</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>After this Quick Start deploys the Root CA server and generates the root certificate, the Root CA server is powered off, and is intended to remain offline until the Subordinate CA certificate needs to be renewed.</p>
-</div>
-<div class="paragraph">
-<p>Domain administrator credentials are stored in AWS Secrets Manager and consumed by the Subordinate CA for domain joining, installing certificate services and adding the required dns records. When these tasks are completed, the domain administrator credentials are removed from AWS Secrets Manager.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_other_useful_information">Other useful information</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>{https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/configure-the-server-certificate-template}[Configure the server certificate template]
-{https://docs.microsoft.com/en-us/windows-server/networking/core-network-guide/cncg/server-certs/configure-server-certificate-autoenrollment}[Configure certificate auto-enrollment]</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_faq">FAQ</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
-</div>
-<div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, we recommend that you relaunch the template with <strong>Rollback on failure</strong> set to <strong>No</strong>. (This setting is under <strong>Advanced</strong> in the AWS CloudFormation console, <strong>Options</strong> page.) With this setting, the stack’s state is retained and the instance is left running, so you can troubleshoot the issue. (For Windows, look at the log files in %ProgramFiles%\Amazon\EC2ConfigService and C:\cfn\log.)</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Please make sure to delete the stack when you finish troubleshooting.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>For additional information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a> on the AWS website.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q.</strong> I encountered a size limitation error when I deployed the AWS CloudFormation templates.</p>
-</div>
-<div class="paragraph">
-<p><strong>A.</strong> We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS documentation</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_troubleshooting">Troubleshooting</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Throughout the deployment steps, various log files record progress and provide insight in to encountered error messages. The following log file locations can be used help troubleshoot deployment failures.</p>
-</div>
-<div class="paragraph">
-<p>Deployment Log File Locations</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>SubCA Log File Repository:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>C:\adcs_scripts</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>SubCA SSM PowerShell LogFile Output:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>C:\ProgramData\Amazon\SSM\InstanceData\&lt;instanceId&gt;\document\orchestration\&lt;commandId&gt;\..\..\stdoutConsole</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>RootCA SSM PowerShell LogFile</p>
-<div class="ulist">
-<ul>
-<li>
-<p>C:\ProgramData\Amazon\SSM\InstanceData\&lt;instanceId&gt;\document\orchestration\&lt;commandId&gt;\..\..\stdoutConsole</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>{https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting-remote-commands.html}[Troubleshooting Systems Manager Run Command]</p>
 </div>
 </div>
 </div>
@@ -1867,7 +1882,7 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-microsoft-pki" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. If you’d like to submit code, please review the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-microsoft-pki" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1883,30 +1898,29 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <h2 id="_github_repository">GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can visit our <a href="https://github.com/aws-quickstart/quickstart-microsoft-pki" target="_blank" rel="noopener">GitHub repository</a> to download
+<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-microsoft-pki" target="_blank" rel="noopener">GitHub repository</a> to download
 the templates and scripts for this Quick Start, to post your comments,
 and to share your customizations with others.</p>
 </div>
 <hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notices">Notices</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>© 2020, Amazon Web Services, Inc. or its affiliates, and {partner-company-name}. All rights reserved.</p>
-</div>
-<div class="sect3">
-<h4 id="_notices">Notices</h4>
-<div class="paragraph">
-<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether express or implied. This document does not create any warranties, representations, contractual commitments, conditions or assurances from AWS, its affiliates, suppliers or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
+<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
 </div>
 <div class="paragraph">
-<p>The software included with this paper is licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the "license" file accompanying this file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" class="bare">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied. See the License for specific language governing permissions and limitations.</p>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div id="footer">
-<div id="footer-text">
-Last updated 2020-08-05 17:50:22 UTC
-</div>
-</div>
+<p class="footer-text">
+<!-- We can use document attributes: -->
+<!-- Generated with Asciidoctor v2.0.10. -->
+<a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2020, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+</p>
 </body>
 </html>

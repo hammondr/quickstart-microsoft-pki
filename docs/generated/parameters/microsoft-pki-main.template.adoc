@@ -1,0 +1,47 @@
+
+.Network configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Key-pair name
+(`KeyPairName`)|`**__Requires input__**`|Name of the key pair that you will use to securely connect to your EC2 instance after it launches. The key pair consists of a private key and a public key.|Availability Zones
+(`AvailabilityZones`)|`**__Requires input__**`|Availability Zones to use for the subnets in the VPC. This deployment uses two Availability Zones, and it preserves their logical order.|Private subnet 1 CIDR
+(`PrivateSubnet1CIDR`)|`10.0.0.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 1.|Private subnet 2 CIDR
+(`PrivateSubnet2CIDR`)|`10.0.64.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 2.|Public subnet 1 CIDR
+(`PublicSubnet1CIDR`)|`10.0.32.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 1.|Public subnet 2 CIDR
+(`PublicSubnet2CIDR`)|`10.0.96.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 2.|VPC CIDR
+(`VPCCIDR`)|`10.0.0.0/16`|CIDR block for the VPC.
+|===
+.Microsoft Active Directory configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Domain-administrator password
+(`DomainAdminPassword`)|`**__Requires input__**`|Password for the domain-administrator user. Must be at least 8 characters and contain letters, numbers, and symbols.|Domain DNS name
+(`DomainDNSName`)|`example.com`|Fully qualified domain name (FQDN) of the forest root domain.|Domain NetBIOS name
+(`DomainNetBIOSName`)|`example`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.
+|===
+.Microsoft PKI configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|EC2 instance size
+(`ServerSize`)|`Small`|Choose "Medium" (C5 large) or "Large" (C5 xlarge) if you don't want "Small" (T3 small).|Common name for the root CA
+(`RootCACommonName`)|`**__Blank string__**`|Examples: "rca" or "rootca."|Common name for the subordinate CA
+(`SubCACommonName`)|`**__Blank string__**`|Examples: "subca" or "ca."|Validity period for the root CA
+(`RootCAValidityPeriod`)|`10`|Enter a value in years.|Validity period for the subordinate CA
+(`SubCAValidityPeriod`)|`1`|Enter a value in years.
+|===
+.Microsoft Remote Desktop Gateway configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Number of RD Gateway hosts
+(`NumberOfRDGWHosts`)|`1`|Choose a number up to four.|Allowed RD Gateway external access CIDR
+(`RDGWCIDR`)|`**__Requires input__**`|Allowed CIDR block for external access to the RD Gateway hosts.|RD Gateway server instance type
+(`RDGWInstanceType`)|`m5.xlarge`|EC2 instance type for the RD Gateway.
+|===
+.AWS Quick Start configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Quick Start S3 bucket name
+(`QSS3BucketName`)|`aws-quickstart`|Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See https://aws-quickstart.github.io/option1.html.|Quick Start S3 bucket Region
+(`QSS3BucketRegion`)|`us-east-1`|AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Keep the default Region unless you are customizing the template. Changing this Region updates code references to point to a new Quick Start location. When using your own bucket, specify the Region. See https://aws-quickstart.github.io/option1.html.|Quick Start S3 key prefix
+(`QSS3KeyPrefix`)|`quickstart-microsoft-pki/`|S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html and https://aws-quickstart.github.io/option1.html.
+|===
