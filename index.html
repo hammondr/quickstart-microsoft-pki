@@ -1507,13 +1507,13 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Private subnet 2 CIDR
 (<code>PrivateSubnet2CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.64.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the Active Directory server tier located in Availability Zone 2.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public subnet 1 CIDR
 (<code>PublicSubnet1CIDR</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.64.0/20</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for the public (DMZ) subnet located in Availability Zone 1.</p></td>
 </tr>
 <tr>
@@ -1545,6 +1545,18 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Controller 1 Private IP Address
+(<code>ADServer1PrivateIP</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.10</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed private IP for the first Active Directory server located in Availability Zone 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain Controller 2 Private IP Address
+(<code>ADServer2PrivateIP</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.10</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed private IP for the second Active Directory server located in Availability Zone 2</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Domain-administrator password
 (<code>DomainAdminPassword</code>)</p></td>

@@ -6,15 +6,17 @@
 (`KeyPairName`)|`**__Requires input__**`|Name of the key pair that you will use to securely connect to your EC2 instance after it launches. The key pair consists of a private key and a public key.|Availability Zones
 (`AvailabilityZones`)|`**__Requires input__**`|Availability Zones to use for the subnets in the VPC. This deployment uses two Availability Zones, and it preserves their logical order.|Private subnet 1 CIDR
 (`PrivateSubnet1CIDR`)|`10.0.0.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 1.|Private subnet 2 CIDR
-(`PrivateSubnet2CIDR`)|`10.0.64.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 2.|Public subnet 1 CIDR
-(`PublicSubnet1CIDR`)|`10.0.32.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 1.|Public subnet 2 CIDR
+(`PrivateSubnet2CIDR`)|`10.0.32.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 2.|Public subnet 1 CIDR
+(`PublicSubnet1CIDR`)|`10.0.64.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 1.|Public subnet 2 CIDR
 (`PublicSubnet2CIDR`)|`10.0.96.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 2.|VPC CIDR
 (`VPCCIDR`)|`10.0.0.0/16`|CIDR block for the VPC.
 |===
 .Microsoft Active Directory configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Domain-administrator password
+|Parameter label (name) |Default value|Description|Domain Controller 1 Private IP Address
+(`ADServer1PrivateIP`)|`10.0.0.10`|Fixed private IP for the first Active Directory server located in Availability Zone 1|Domain Controller 2 Private IP Address
+(`ADServer2PrivateIP`)|`10.0.32.10`|Fixed private IP for the second Active Directory server located in Availability Zone 2|Domain-administrator password
 (`DomainAdminPassword`)|`**__Requires input__**`|Password for the domain-administrator user. Must be at least 8 characters and contain letters, numbers, and symbols.|Domain DNS name
 (`DomainDNSName`)|`example.com`|Fully qualified domain name (FQDN) of the forest root domain.|Domain NetBIOS name
 (`DomainNetBIOSName`)|`example`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.
