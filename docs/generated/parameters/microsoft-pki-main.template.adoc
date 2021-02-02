@@ -2,56 +2,61 @@
 .Network Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Key-pair name
-(`KeyPairName`)|`**__Requires input__**`|Name of the key pair that you will use to securely connect to your EC2 instance after it launches. The key pair consists of a private key and a public key.|Availability Zones
-(`AvailabilityZones`)|`**__Requires input__**`|Availability Zones to use for the subnets in the VPC. This deployment uses two Availability Zones, and it preserves their logical order.|Private subnet 1 CIDR
-(`PrivateSubnet1CIDR`)|`10.0.0.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 1.|Private subnet 2 CIDR
-(`PrivateSubnet2CIDR`)|`10.0.32.0/19`|CIDR block for the Active Directory server tier located in Availability Zone 2.|Public subnet 1 CIDR
-(`PublicSubnet1CIDR`)|`10.0.64.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 1.|Public subnet 2 CIDR
-(`PublicSubnet2CIDR`)|`10.0.96.0/20`|CIDR block for the public (DMZ) subnet located in Availability Zone 2.|VPC CIDR
-(`VPCCIDR`)|`10.0.0.0/16`|CIDR block for the VPC.
+|Parameter label (name) |Default value|Description|Availability Zones
+(`AvailabilityZones`)|`**__Requires input__**`|List of Availability Zones to use for the subnets in the VPC. Note: The logical order is preserved and only 2 AZs are used for this deployment|VPC CIDR
+(`VPCCIDR`)|`10.0.0.0/16`|CIDR block for the VPC.|Private subnet 1 CIDR
+(`PrivateSubnet1CIDR`)|`10.0.0.0/19`|CIDR block for private subnet 1 located in Availability Zone 1|Private subnet 2 CIDR
+(`PrivateSubnet2CIDR`)|`10.0.32.0/19`|CIDR block for private subnet 2 located in Availability Zone 2|Public subnet 1 CIDR
+(`PublicSubnet1CIDR`)|`10.0.64.0/20`|CIDR Block for the public subnet 1 located in Availability Zone 1|Public subnet 2 CIDR
+(`PublicSubnet2CIDR`)|`10.0.96.0/20`|CIDR Block for the public subnet 2 located in Availability Zone 2
+|===
+.Amazon EC2 configuration
+[width="100%",cols="16%,11%,73%",options="header",]
+|===
+|Parameter label (name) |Default value|Description|Key Pair Name
+(`KeyPairName`)|`**__Requires input__**`|Name of the key pair that you will use to securely connect to your EC2 instance after it launches
 |===
 .Microsoft Active Directory Domain Services Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Domain Controller 1 Private IP Address
-(`ADServer1PrivateIP`)|`10.0.0.10`|Fixed private IP for the first Active Directory server located in Availability Zone 1|Domain Controller 2 Private IP Address
-(`ADServer2PrivateIP`)|`10.0.32.10`|Fixed private IP for the second Active Directory server located in Availability Zone 2|Domain-administrator password
-(`DomainAdminPassword`)|`**__Requires input__**`|Password for the domain-administrator user. Must be at least 8 characters and contain letters, numbers, and symbols.|Domain DNS name
-(`DomainDNSName`)|`example.com`|Fully qualified domain name (FQDN) of the forest root domain.|Domain NetBIOS name
-(`DomainNetBIOSName`)|`example`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows.
+|Parameter label (name) |Default value|Description|Domain DNS Name
+(`DomainDNSName`)|`example.com`|Fully qualified domain name (FQDN) of the forest root domain e.g. example.com|Domain NetBIOS namNamee
+(`DomainNetBIOSName`)|`example`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows e.g. EXAMPLE versions of Windows.|Domain Controller 1 Private IP Address
+(`ADServer1PrivateIP`)|`10.0.0.10`|Fixed private IP for the first Active Directory Domain Controller located in Availability Zone 1|Domain Controller 2 Private IP Address
+(`ADServer2PrivateIP`)|`10.0.32.10`|Fixed private IP for the second Active Directory Domain Controller located in Availability Zone 2|Alternate Domain Admin Password
+(`DomainAdminPassword`)|`**__Requires input__**`|User name for the account that will be added as a Domain Administrator. This is separate from the default "Administrator" account
 |===
 .Microsoft Active Directory Certificate Services Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Do you want to Deploy Two Tier or One Tier PKI Infrastructure
-(`CADeploymentType`)|`Two-Tier`|Do you want to Deploy Two Tier or One Tier PKI Infrastructure|Offline Root CA Instance Type (Only Used For Two Tier PKI)
-(`OrCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Offline Root CA instance (Only Used For Two Tier PKI)|Size of the Data Drive in GiB for Offline Root CA (Only Used For Two Tier PKI)
-(`OrCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for Offline Root CA (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Instance Type
-(`EntCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Enterprise Root or Subordinate CA instance|Size of the Data Drive in GiB for Enterprise Root or Subordinate CA
-(`EntCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for Enterprise Root or Subordinate CA|Offline Root CA NetBIOS Name (Only Used For Two Tier PKI)
+|Parameter label (name) |Default value|Description|Deploy PKI Infrastructure
+(`CADeploymentType`)|`Two-Tier`|Deploy Two Tier (Offline Root with Subordinate Enterprise CA) or One Tier (Enterprise Root CA) PKI Infrastructure|Offline Root CA Instance Type (Only Used For Two Tier PKI)
+(`OrCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Offline Root CA instance (Only Used For Two Tier PKI)|Offline Root CA Data Drive Size (Only Used For Two Tier PKI)
+(`OrCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for the Offline Root CA (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Instance Type
+(`EntCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Enterprise Root or Subordinate CA instance|Enterprise Root or Subordinate CA Data Drive Size
+(`EntCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for the Enterprise Root or Subordinate CA|Offline Root CA NetBIOS Name (Only Used For Two Tier PKI)
 (`OrCaServerNetBIOSName`)|`ORCA1`|NetBIOS name of the Offline Root CA server (Only Used For Two Tier PKI) (up to 15 characters)|Enterprise Root or Subordinate CA NetBIOS Name
 (`EntCaServerNetBIOSName`)|`ENTCA1`|NetBIOS name of the Enterprise Root or Subordinate CA server (up to 15 characters)|CA Key Length
-(`CaKeyLength`)|`2048`|CA(s) Key Length|CA Hash Algorithm
-(`CaHashAlgorithm`)|`SHA256`|CA(s) Hash Algorithm|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)
-(`OrCaValidityPeriodUnits`)|`10`|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Certificate Validity Period in Years
-(`CaValidityPeriodUnits`)|`5`|Enterprise Root or Subordinate CA Certificate Validity Period in Years|Use S3 for CA(s) CRL location
-(`UseS3ForCRL`)|`No`|Use S3 for CA(s) CRL location|S3 bucket name for CA(s) CRL
-(`S3CRLBucketName`)|`examplebucket`|S3 bucket name for CA(s) CRL. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
+(`CaKeyLength`)|`2048`|CA Cryptographic Provider Key Length|CA Hash Algorithm
+(`CaHashAlgorithm`)|`SHA256`|CA Hash Algorithm for Siging Certificates|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)
+(`OrCaValidityPeriodUnits`)|`10`|Validity Period in Years (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Certificate Validity Period in Years
+(`CaValidityPeriodUnits`)|`5`|Store CA CRL(s) in an S3 bucket|Use S3 for CA CRL Location
+(`UseS3ForCRL`)|`No`|Use S3 for CA(s) CRL location|CA CRL S3 Bucket Name
+(`S3CRLBucketName`)|`examplebucket`|S3 bucket name for CA CRL(s) storage. Bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-)
 |===
 .Microsoft Remote Desktop Gateway Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Number of RD Gateway hosts
-(`NumberOfRDGWHosts`)|`1`|Choose a number up to four.|Allowed RD Gateway external access CIDR
-(`RDGWCIDR`)|`**__Requires input__**`|Allowed CIDR block for external access to the RD Gateway hosts.|RD Gateway server instance type
-(`RDGWInstanceType`)|`t3.large`|EC2 instance type for the RD Gateway.
+|Parameter label (name) |Default value|Description|Number of RDGW Hosts
+(`NumberOfRDGWHosts`)|`1`|Enter the number of Remote Desktop Gateway instances to create|RD Gateway Server Instance Type
+(`RDGWInstanceType`)|`t3.large`|Amazon EC2 instance type for the Remote Desktop Gateway instances|Allowed Remote Desktop Gateway External Access CIDR
+(`RDGWCIDR`)|`**__Requires input__**`|Allowed CIDR Block for external access to the Remote Desktop Gateways
 |===
 .AWS Quick Start Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Quick Start S3 bucket name
-(`QSS3BucketName`)|`aws-quickstart`|Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See https://aws-quickstart.github.io/option1.html.|Quick Start S3 bucket Region
-(`QSS3BucketRegion`)|`us-east-1`|AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Keep the default Region unless you are customizing the template. Changing this Region updates code references to point to a new Quick Start location. When using your own bucket, specify the Region. See https://aws-quickstart.github.io/option1.html.|Quick Start S3 key prefix
-(`QSS3KeyPrefix`)|`quickstart-microsoft-pki/`|S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html and https://aws-quickstart.github.io/option1.html.
+|Parameter label (name) |Default value|Description|Quick Start S3 Bucket Name
+(`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|Quick Start S3 Bucket Region
+(`QSS3BucketRegion`)|`us-east-1`|The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value|Quick Start S3 Key Prefix
+(`QSS3KeyPrefix`)|`quickstart-microsoft-pki/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/)
 |===

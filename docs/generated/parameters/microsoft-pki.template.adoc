@@ -5,50 +5,50 @@
 |Parameter label (name) |Default value|Description|VPC CIDR
 (`VPCCIDR`)|`10.0.0.0/16`|CIDR Block for the VPC|VPC ID
 (`VPCID`)|`**__Requires input__**`|ID of the VPC (e.g., vpc-0343606e)|CA(s) Subnet ID
-(`CaServerSubnet`)|`**__Requires input__**`|ID of the CA(s) subnet (e.g., subnet-a0246dcd)|Security Group ID for Domain Members Security Group.
+(`CaServerSubnet`)|`**__Requires input__**`|ID of the CA(s) subnet (e.g., subnet-a0246dcd)|Domain Members Security Group ID
 (`DomainMembersSG`)|`**__Requires input__**`|Security Group ID for Domain Members Security Group.
 |===
 .Amazon EC2 Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Offline Root CA Instance Type (Only Used For Two Tier PKI)
-(`OrCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Offline Root CA instance (Only Used For Two Tier PKI)|Size of the Data Drive in GiB for Offline Root CA (Only Used For Two Tier PKI)
-(`OrCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for Offline Root CA (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Instance Type
-(`EntCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Enterprise Root or Subordinate CA instance|Size of the Data Drive in GiB for Enterprise Root or Subordinate CA
-(`EntCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for Enterprise Root or Subordinate CA|Key pair name
-(`KeyPairName`)|`**__Requires input__**`|Name of the key pair that you will use to securely connect to your EC2 instance after it launches.|SSM Parameter Value to grab the lastest AMI ID
+(`OrCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Offline Root CA instance (Only Used For Two Tier PKI)|Offline Root CA Data Drive Size (Only Used For Two Tier PKI)
+(`OrCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for the Offline Root CA (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Instance Type
+(`EntCaServerInstanceType`)|`t3.medium`|Amazon EC2 instance type for the Enterprise Root or Subordinate CA instance|Enterprise Root or Subordinate CA Data Drive Size
+(`EntCaDataDriveSizeGiB`)|`2`|Size of the Data Drive in GiB for the Enterprise Root or Subordinate CA|Key Pair Name
+(`KeyPairName`)|`**__Requires input__**`|Name of the key pair that you will use to securely connect to your EC2 instance after it launches.|SSM Parameter Value for lastest AMI ID
 (`AMI`)|`/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base`|CA(s) SSM Parameter Value to grab the lastest AMI ID
 |===
 .Microsoft Active Directory Domain Services Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Domain FQDN DNS name
-(`DomainDNSName`)|`**__Requires input__**`|Fully qualified domain name (FQDN) of the forest root domain e.g. example.com|Domain NetBios name
-(`DomainNetBIOSName`)|`**__Requires input__**`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows e.g. EXAMPLE|IP For Domain Controller that Offline Root (Only Used For Two Tier PKI) & Enterprise CA Instance will use for DNS
-(`DomainController1IP`)|`**__Requires input__**`|IP For Domain Controller that Offline Root (Only Used For Two Tier PKI) & Enterprise Root or Subordinate CA Instance will use for DNS|IP For Domain Controller that Offline Root (Only Used For Two Tier PKI) & Enterprise Root or Subordinate CA Instance will use for DNS
-(`DomainController2IP`)|`**__Requires input__**`|IP For Domain Controller that Offline Root (Only Used For Two Tier PKI) & Enterprise Root or Subordinate CA Instance will use for DNS|The arn for the Secret containing the domain CA Install Credentials
-(`AdministratorSecret`)|`**__Requires input__**`|The arn for the Secret containing the CA Install Credentials|Type of Active Directory CA(s) will be integrated with
-(`DirectoryType`)|`**__Requires input__**`|Type of Active Directory CA(s) will be integrated with, AWS Managed Microsoft AD or Self Managed AD
+|Parameter label (name) |Default value|Description|Active Directory Domain Services Type
+(`DirectoryType`)|`**__Requires input__**`|Type of Active Directory the CA(s) will be integrated with, AWS Managed Microsoft AD or Self Managed AD|Domain FQDN DNS Name
+(`DomainDNSName`)|`**__Requires input__**`|Fully qualified domain name (FQDN) of the forest root domain e.g. example.com|Domain NetBIOS Name
+(`DomainNetBIOSName`)|`**__Requires input__**`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows e.g. EXAMPLE|IP the Instance will be used for DNS (Must be accessible)
+(`DomainController1IP`)|`**__Requires input__**`|IP of DNS server that can resolve domain (Must be accessible)|IP the Instance will be used for DNS (Must be accessible)
+(`DomainController2IP`)|`**__Requires input__**`|IP of DNS server that can resolve domain (Must be accessible)|Secret ARN Containing CA Install Credentials
+(`AdministratorSecret`)|`**__Requires input__**`|ARN for the CA Install Credentials Secret used to to install the CA (Must be a member of Enterpise Admins)
 |===
 .Microsoft Active Directory Certificate Services Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
-|Parameter label (name) |Default value|Description|Do you want to Deploy Two Tier or One Tier PKI Infrastructure
-(`CADeploymentType`)|`Two-Tier`|Do you want to Deploy Two Tier or One Tier PKI Infrastructure|Offline Root CA NetBIOS Name (Only Used For Two Tier PKI)
+|Parameter label (name) |Default value|Description|CA Deployment Type
+(`CADeploymentType`)|`Two-Tier`|Deploy Two Tier (Offline Root with Subordinate Enterprise CA) or One Tier (Enterprise Root CA) PKI Infrastructure|Offline Root CA NetBIOS Name (Only Used For Two Tier PKI)
 (`OrCaServerNetBIOSName`)|`ORCA1`|NetBIOS name of the Offline Root CA server (Only Used For Two Tier PKI) (up to 15 characters)|Enterprise Root or Subordinate CA NetBIOS Name
 (`EntCaServerNetBIOSName`)|`ENTCA1`|NetBIOS name of the Enterprise Root or Subordinate CA server (up to 15 characters)|CA Key Length
-(`CaKeyLength`)|`2048`|CA(s) Key Length|CA Hash Algorithm
-(`CaHashAlgorithm`)|`SHA256`|CA(s) Hash Algorithm|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)
-(`OrCaValidityPeriodUnits`)|`10`|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Certificate Validity Period in Years
-(`CaValidityPeriodUnits`)|`5`|Enterprise Root or Subordinate CA Certificate Validity Period in Years|Use S3 for CA(s) CRL location
-(`UseS3ForCRL`)|`No`|Use S3 for CA(s) CRL location|S3 bucket name for CA(s) CRL
-(`S3CRLBucketName`)|`examplebucket`|S3 bucket name for CA(s) CRL. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
+(`CaKeyLength`)|`2048`|CA(s) Cryptographic Provider Key Length|CA Hash Algorithm
+(`CaHashAlgorithm`)|`SHA256`|CA(s) Hash Algorithm for Siging Certificates|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)
+(`OrCaValidityPeriodUnits`)|`10`|Validity Period in Years (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Certificate Validity Period in Years
+(`CaValidityPeriodUnits`)|`5`|Validity Period in Years|Use S3 for CA CRL Location
+(`UseS3ForCRL`)|`No`|Store CA CRL(s) in an S3 bucket|CA CRL S3 Bucket Name
+(`S3CRLBucketName`)|`examplebucket`|S3 bucket name for CA CRL(s) storage. Bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-)
 |===
 .AWS Quick Start configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Quick Start S3 bucket name
-(`QSS3BucketName`)|`aws-quickstart`|Name of the S3 bucket for your copy of the Quick Start assets. Keep the default name unless you are customizing the template. Changing the name updates code references to point to a new Quick Start location. This name can include numbers, lowercase letters, uppercase letters, and hyphens, but do not start or end with a hyphen (-). See https://aws-quickstart.github.io/option1.html.|Quick Start S3 bucket Region
-(`QSS3BucketRegion`)|`us-east-1`|AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. Keep the default Region unless you are customizing the template. Changing this Region updates code references to point to a new Quick Start location. When using your own bucket, specify the Region. See https://aws-quickstart.github.io/option1.html.|Quick Start S3 key prefix
-(`QSS3KeyPrefix`)|`quickstart-microsoft-pki/`|S3 key prefix that is used to simulate a directory for your copy of the Quick Start assets. Keep the default prefix unless you are customizing the template. Changing this prefix updates code references to point to a new Quick Start location. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/). See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html and https://aws-quickstart.github.io/option1.html.
+(`QSS3BucketName`)|`aws-quickstart`|S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).|Quick Start S3 bucket Region
+(`QSS3BucketRegion`)|`us-east-1`|The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value|Quick Start S3 key prefix
+(`QSS3KeyPrefix`)|`quickstart-microsoft-pki/`|S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/)
 |===
