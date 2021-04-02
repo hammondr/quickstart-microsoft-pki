@@ -10,7 +10,7 @@
 (`PublicSubnet1CIDR`)|`10.0.64.0/20`|CIDR Block for the public subnet 1 located in Availability Zone 1|Public subnet 2 CIDR
 (`PublicSubnet2CIDR`)|`10.0.96.0/20`|CIDR Block for the public subnet 2 located in Availability Zone 2
 |===
-.Amazon EC2 configuration
+.Amazon EC2 Configuration
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Key Pair Name
@@ -21,7 +21,7 @@
 |===
 |Parameter label (name) |Default value|Description|Domain DNS Name
 (`DomainDNSName`)|`example.com`|Fully qualified domain name (FQDN) of the forest root domain e.g. example.com|Domain NetBIOS namNamee
-(`DomainNetBIOSName`)|`example`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows e.g. EXAMPLE versions of Windows.|Domain Controller 1 Private IP Address
+(`DomainNetBIOSName`)|`example`|NetBIOS name of the domain (up to 15 characters) for users of earlier versions of Windows e.g. EXAMPLE|Domain Controller 1 Private IP Address
 (`ADServer1PrivateIP`)|`10.0.0.10`|Fixed private IP for the first Active Directory Domain Controller located in Availability Zone 1|Domain Controller 2 Private IP Address
 (`ADServer2PrivateIP`)|`10.0.32.10`|Fixed private IP for the second Active Directory Domain Controller located in Availability Zone 2|Alternate Domain Admin Password
 (`DomainAdminPassword`)|`**__Requires input__**`|User name for the account that will be added as a Domain Administrator. This is separate from the default "Administrator" account
@@ -38,7 +38,7 @@
 (`OrCaServerNetBIOSName`)|`ORCA1`|NetBIOS name of the Offline Root CA server (Only Used For Two Tier PKI) (up to 15 characters)|Enterprise Root or Subordinate CA NetBIOS Name
 (`EntCaServerNetBIOSName`)|`ENTCA1`|NetBIOS name of the Enterprise Root or Subordinate CA server (up to 15 characters)|CA Key Length
 (`CaKeyLength`)|`2048`|CA Cryptographic Provider Key Length|CA Hash Algorithm
-(`CaHashAlgorithm`)|`SHA256`|CA Hash Algorithm for Siging Certificates|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)
+(`CaHashAlgorithm`)|`SHA256`|CA Hash Algorithm for Signing Certificates|Offline Root CA Certificate Validity Period in Years (Only Used For Two Tier PKI)
 (`OrCaValidityPeriodUnits`)|`10`|Validity Period in Years (Only Used For Two Tier PKI)|Enterprise Root or Subordinate CA Certificate Validity Period in Years
 (`CaValidityPeriodUnits`)|`5`|Store CA CRL(s) in an S3 bucket|Use S3 for CA CRL Location
 (`UseS3ForCRL`)|`No`|Use S3 for CA(s) CRL location|CA CRL S3 Bucket Name
