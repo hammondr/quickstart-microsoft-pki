@@ -46,6 +46,9 @@ $SvolFolders = @(
 # Main
 #==================================================
 
+Write-Output 'Setting Default S3 Region to us-gov-east-1'
+Set-DefaultAWSRegion -Region us-gov-east-1
+
 Write-Output "Finding a domain controller $_"
 Try {
 $DC = Get-ADDomainController -Discover -ForceDiscover | Select-Object -ExpandProperty 'HostName'
@@ -188,7 +191,7 @@ Try {
 If ($UseS3ForCRL -eq 'Yes') {
     Write-Output 'Copying CRL to S3 bucket'
     Try {
-        Write-S3Object -BucketName $S3CRLBucketName -Folder 'C:\Windows\System32\CertSrv\CertEnroll\' -KeyPrefix "$CompName\" -SearchPattern '*.cr*' -PublicReadOnly -ErrorAction Stop
+        Write-S3Object -BucketName $S3CRLBucketName -Region us-gov-east-1 -Folder 'C:\Windows\System32\CertSrv\CertEnroll\' -KeyPrefix "$CompName\" -SearchPattern '*.cr*' -PublicReadOnly -ErrorAction Stop
     } Catch [System.Exception] {
         Write-Output "Failed to copy CRL to S3 bucket $_"
         Exit 1
@@ -246,7 +249,7 @@ If ($DirectoryType -eq 'SelfManaged') {
 Write-Output 'Creating Update CRL Scheduled Task'
 Try {
     If ($UseS3ForCRL -eq 'Yes') {
-        $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
+        $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -Region us-gov-east-1 -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
     } Else {
         $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument '& certutil.exe -crl; Copy-Item -Path C:\Windows\System32\CertSrv\CertEnroll\*.cr* -Destination D:\Pki\'
     }

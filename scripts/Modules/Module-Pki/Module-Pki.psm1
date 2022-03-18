@@ -662,6 +662,9 @@ Function Invoke-EnterpriseCaConfig {
 
         Write-Output 'Copying cps.txt to S3 bucket'
         Try {
+            Write-Output 'Setting Default S3 Region to us-gov-east-1'
+            Set-DefaultAWSRegion -Region us-gov-east-1
+
             Write-S3Object -BucketName $S3CRLBucketName -Folder 'D:\Pki\' -KeyPrefix "$CompName\" -SearchPattern 'cps.txt' -PublicReadOnly -ErrorAction Stop
         } Catch [System.Exception] {
             Write-Output "Failed to copy cps.txt to S3 bucket $_"
@@ -771,6 +774,9 @@ Function Invoke-EnterpriseCaConfig {
     If ($UseS3ForCRL -eq 'Yes') {
         Write-Output 'Copying CRL to S3 bucket'
         Try {
+            Write-Output 'Setting Default S3 Region to us-gov-east-1'
+            Set-DefaultAWSRegion -Region us-gov-east-1
+
             Write-S3Object -BucketName $S3CRLBucketName -Folder 'C:\Windows\System32\CertSrv\CertEnroll\' -KeyPrefix "$CompName\" -SearchPattern '*.cr*' -PublicReadOnly -ErrorAction Stop
         } Catch [System.Exception] {
             Write-Output "Failed to copy CRL to S3 bucket $_"
@@ -807,7 +813,7 @@ Function Invoke-EnterpriseCaConfig {
         If ($UseS3ForCRL -eq 'No') {
             $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument '& certutil.exe -crl; Copy-Item -Path C:\Windows\System32\CertSrv\CertEnroll\*.cr* -Destination D:\Pki\'
         } Else {
-            $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
+            $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -Region us-gov-east-1 -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
         }
         $ScheduledTaskTrigger = New-ScheduledTaskTrigger -Daily -DaysInterval '5' -At '12am' -ErrorAction Stop
         $ScheduledTaskPrincipal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType 'ServiceAccount' -RunLevel 'Highest' -ErrorAction Stop
@@ -949,6 +955,9 @@ Function Invoke-TwoTierOrCaConfig {
 
         Write-Output 'Copying cps.txt to S3 bucket'
         Try {
+            Write-Output 'Setting Default S3 Region to us-gov-east-1'
+            Set-DefaultAWSRegion -Region us-gov-east-1
+
             Write-S3Object -BucketName $S3CRLBucketName -Folder 'D:\Pki\' -KeyPrefix "$CompName\" -SearchPattern 'cps.txt' -PublicReadOnly -ErrorAction Stop
         } Catch [System.Exception] {
             Write-Output "Failed to copy cps.txt to S3 bucket $_"
@@ -1058,6 +1067,9 @@ Function Invoke-TwoTierOrCaConfig {
     If ($UseS3ForCRL -eq 'Yes') {
         Write-Output 'Copying CRL to S3 bucket'
         Try {
+            Write-Output 'Setting Default S3 Region to us-gov-east-1'
+            Set-DefaultAWSRegion -Region us-gov-east-1
+
             Write-S3Object -BucketName $S3CRLBucketName -Folder 'C:\Windows\System32\CertSrv\CertEnroll\' -KeyPrefix "$CompName\" -SearchPattern '*.cr*' -PublicReadOnly -ErrorAction Stop
         } Catch [System.Exception] {
             Write-Output "Failed to copy CRL to S3 bucket $_"
@@ -1077,7 +1089,7 @@ Function Invoke-TwoTierOrCaConfig {
         If ($UseS3ForCRL -eq 'No') {
             $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument '& certutil.exe -crl; Copy-Item -Path C:\Windows\System32\CertSrv\CertEnroll\*.cr* -Destination D:\Pki\'
         } Else {
-            $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
+            $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -Region us-gov-east-1 -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
         }
         $ScheduledTaskTrigger = New-ScheduledTaskTrigger -Weekly -WeeksInterval '25' -DaysOfWeek 'Sunday' -At '12am' -ErrorAction Stop
         $ScheduledTaskPrincipal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType 'ServiceAccount' -RunLevel 'Highest' -ErrorAction Stop
@@ -1379,6 +1391,9 @@ Function Invoke-TwoTierSubCaInstall {
 
         Write-Output 'Copying cps.txt to S3 bucket'
         Try {
+            Write-Output 'Setting Default S3 Region to us-gov-east-1'
+            Set-DefaultAWSRegion -Region us-gov-east-1
+
             Write-S3Object -BucketName $S3CRLBucketName -Folder 'D:\Pki\' -KeyPrefix "$CompName\" -SearchPattern 'cps.txt' -PublicReadOnly -ErrorAction Stop
         } Catch [System.Exception] {
             Write-Output "Failed to copy cps.txt to S3 bucket $_"
@@ -1706,6 +1721,9 @@ Function Invoke-TwoTierSubCaConfig {
     If ($UseS3ForCRL -eq 'Yes') {
         Write-Output 'Copying CRL to S3 bucket'
         Try {
+            Write-Output 'Setting Default S3 Region to us-gov-east-1'
+            Set-DefaultAWSRegion -Region us-gov-east-1
+
             Write-S3Object -BucketName $S3CRLBucketName -Folder 'C:\Windows\System32\CertSrv\CertEnroll\' -KeyPrefix "$CompName\" -SearchPattern '*.cr*' -PublicReadOnly -ErrorAction Stop
         } Catch [System.Exception] {
             Write-Output "Failed to copy CRL to S3 bucket $_"
@@ -1741,7 +1759,7 @@ Function Invoke-TwoTierSubCaConfig {
     Write-Output 'Creating Update CRL Scheduled Task'
     Try {
         If ($UseS3ForCRL -eq 'Yes') {
-            $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
+            $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -Region us-gov-east-1 -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
         } Else {
             $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument '& certutil.exe -crl; Copy-Item -Path C:\Windows\System32\CertSrv\CertEnroll\*.cr* -Destination D:\Pki\'
         }

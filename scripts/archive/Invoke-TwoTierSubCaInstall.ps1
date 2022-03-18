@@ -256,6 +256,9 @@ If ($UseS3ForCRL -eq 'No') {
 
     Write-Output 'Copying cps.txt to S3 bucket'
     Try {
+        Write-Output 'Setting Default S3 Region to us-gov-east-1'
+        Set-DefaultAWSRegion -Region us-gov-east-1
+
         Write-S3Object -BucketName $S3CRLBucketName -Folder 'D:\Pki\' -KeyPrefix "$CompName\" -SearchPattern 'cps.txt' -PublicReadOnly -ErrorAction Stop
     } Catch [System.Exception] {
         Write-Output "Failed to copy cps.txt to S3 bucket $_"

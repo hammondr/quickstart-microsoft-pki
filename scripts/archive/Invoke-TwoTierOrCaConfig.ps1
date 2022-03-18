@@ -38,6 +38,9 @@ $Folders = @(
 # Main
 #==================================================
 
+Write-Output 'Setting Default S3 Region to us-gov-east-1'
+Set-DefaultAWSRegion -Region us-gov-east-1
+
 Write-Output "Getting $ADAdminSecParam Secret"
 Try {
     $AdminSecret = Get-SECSecretValue -SecretId $ADAdminSecParam -ErrorAction Stop | Select-Object -ExpandProperty 'SecretString'
