@@ -113,7 +113,8 @@ Try {
 If ($UseS3ForCRL -eq 'Yes') {
     Write-Output 'Getting S3 bucket location'
     Try {
-        $BucketRegion = Get-S3BucketLocation -BucketName $S3CRLBucketName | Select-Object -ExpandProperty 'Value' -ErrorAction Stop
+        #$BucketRegion = Get-S3BucketLocation -BucketName $S3CRLBucketName | Select-Object -ExpandProperty 'Value' -ErrorAction Stop
+        $BucketRegion = "us-gov-east-1"
     } Catch [System.Exception] {
         Write-Output "Failed to get S3 bucket location $_"
         Exit 1
