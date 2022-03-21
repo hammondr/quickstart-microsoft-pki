@@ -240,8 +240,10 @@ If ($UseS3ForCRL -eq 'No') {
 } Else {
     Write-Output 'Getting S3 bucket location'
     Try {
-        #$BucketRegion = Get-S3BucketLocation -BucketName $S3CRLBucketName | Select-Object -ExpandProperty 'Value' -ErrorAction Stop
-        $BucketRegion = "us-gov-east-1"
+        Write-Output "Setting Default S3 Region to $QSS3BucketRegion"
+        Set-DefaultAWSRegion -Region $QSS3BucketRegion
+
+        $BucketRegion = Get-S3BucketLocation -BucketName $S3CRLBucketName | Select-Object -ExpandProperty 'Value' -ErrorAction Stop
     } Catch [System.Exception] {
         Write-Output "Failed to get S3 bucket location $_"
         Exit 1
@@ -256,8 +258,8 @@ If ($UseS3ForCRL -eq 'No') {
 
     Write-Output 'Copying cps.txt to S3 bucket'
     Try {
-        Write-Output 'Setting Default S3 Region to us-gov-east-1'
-        Set-DefaultAWSRegion -Region us-gov-east-1
+        Write-Output "Setting Default S3 Region to $QSS3BucketRegion"
+        Set-DefaultAWSRegion -Region $QSS3BucketRegion
 
         Write-S3Object -BucketName $S3CRLBucketName -Folder 'D:\Pki\' -KeyPrefix "$CompName\" -SearchPattern 'cps.txt' -PublicReadOnly -ErrorAction Stop
     } Catch [System.Exception] {

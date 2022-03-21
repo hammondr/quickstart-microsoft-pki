@@ -217,8 +217,9 @@ If ($UseS3ForCRL -eq 'No') {
 } Else {
     Write-Output 'Getting S3 bucket location'
     Try {
-        #$BucketRegion = Get-S3BucketLocation -BucketName $S3CRLBucketName | Select-Object -ExpandProperty 'Value' -ErrorAction Stop
-        $BucketRegion = "us-gov-east-1"
+        Write-Output "Setting Default S3 Region to $QSS3BucketRegion"
+        Set-DefaultAWSRegion -Region $QSS3BucketRegion
+        $BucketRegion = Get-S3BucketLocation -BucketName $S3CRLBucketName | Select-Object -ExpandProperty 'Value' -ErrorAction Stop
     } Catch [System.Exception] {
         Write-Output "Failed to get S3 bucket location $_"
         Exit 1
@@ -234,8 +235,8 @@ If ($UseS3ForCRL -eq 'No') {
 
     Write-Output 'Copying cps.txt to S3 bucket'
     Try {
-        Write-Output 'Setting Default S3 Region to us-gov-east-1'
-        Set-DefaultAWSRegion -Region us-gov-east-1
+        Write-Output "Setting Default S3 Region to $QSS3BucketRegion"
+        Set-DefaultAWSRegion -Region $QSS3BucketRegion
 
         Write-S3Object -BucketName $S3CRLBucketName -Folder 'D:\Pki\' -KeyPrefix "$CompName\" -SearchPattern 'cps.txt' -PublicReadOnly -ErrorAction Stop
     } Catch [System.Exception] {
@@ -346,8 +347,8 @@ Try {
 If ($UseS3ForCRL -eq 'Yes') {
     Write-Output 'Copying CRL to S3 bucket'
     Try {
-        Write-Output 'Setting Default S3 Region to us-gov-east-1'
-        Set-DefaultAWSRegion -Region us-gov-east-1
+        Write-Output "Setting Default S3 Region to $QSS3BucketRegion"
+        Set-DefaultAWSRegion -Region $QSS3BucketRegion
 
         Write-S3Object -BucketName $S3CRLBucketName -Folder 'C:\Windows\System32\CertSrv\CertEnroll\' -KeyPrefix "$CompName\" -SearchPattern '*.cr*' -PublicReadOnly -ErrorAction Stop
     } Catch [System.Exception] {
@@ -409,7 +410,7 @@ Try {
     If ($UseS3ForCRL -eq 'No') {
         $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument '& certutil.exe -crl; Copy-Item -Path C:\Windows\System32\CertSrv\CertEnroll\*.cr* -Destination D:\Pki\'
     } Else {
-        $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -Region us-gov-east-1 -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
+        $ScheduledTaskAction = New-ScheduledTaskAction -Execute 'PowerShell.exe' -Argument "& certutil.exe -crl; Write-S3Object -Region $QSS3BucketRegion -BucketName $S3CRLBucketName -Folder C:\Windows\System32\CertSrv\CertEnroll\ -KeyPrefix $CompName\ -SearchPattern *.cr* -PublicReadOnly"
     }
     $ScheduledTaskTrigger = New-ScheduledTaskTrigger -Daily -DaysInterval '5' -At '12am' -ErrorAction Stop
     $ScheduledTaskPrincipal = New-ScheduledTaskPrincipal -UserId 'SYSTEM' -LogonType 'ServiceAccount' -RunLevel 'Highest' -ErrorAction Stop
